@@ -1,0 +1,33 @@
+const ShoppingCart = require('./Component/test2'); // Adjust the path based on your project structure
+
+const cart = new ShoppingCart();
+
+describe('ShoppingCart', () => {
+
+
+    test('Adding multiple item to the shopping cart', () => {
+
+        expect(cart.getItemCount()).toBe(0);
+
+        const product1 = { id: 1, name: 'Product A', price: 10, quentity: 2 };
+        const product2 = { id: 2, name: 'Product B', price: 20, quentity: 1 };
+
+        cart.addProductToCart(product1);
+        cart.addProductToCart(product2);
+
+        expect(cart.getItemCount()).toBe(2);
+    });
+
+    test('Get how many item cart have', () => {
+
+        // Retrieve all items from the cart
+        const items = cart.getAllItems();
+
+        // Expect the cart to contain all added products
+        expect(items).toHaveLength(2);
+
+    });
+
+
+
+});
