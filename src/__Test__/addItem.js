@@ -1,5 +1,5 @@
 // get the shooping cart from Component folder.
-const ShoppingCart = require("./Component/refactor");
+const ShoppingCart = require("../Component/refactor");
 
 // This is a failing test case
 test('Adding an item to the shopping cart', () => {

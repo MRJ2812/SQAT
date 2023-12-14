@@ -1,24 +1,30 @@
 class ShoppingCart {
 
     constructor() {
-        this.items = new Map(); // Use Map to store items with unique IDs as keys
+        this.items = new Map();
     }
 
     getItemCount() {
-        // Use the size property of the Map for faster retrieval of item count
         return this.items.size;
     }
 
     addProductToCart(product) {
-        // Assuming 'product' has a unique 'id' property
-        if (!this.items.has(product.id)) {
-            // Use the 'id' property as the key in the Map
-            this.items.set(product.id, product);
+
+        if (typeof product !== 'object' || product === null) {
+            throw new Error('Invalid product: Not an object');
         }
+
+        const requiredProperties = ['id', 'name', 'price', 'quentity'];
+        const hasAllProperties = requiredProperties.every(prop => Object.prototype.hasOwnProperty.call(product, prop));
+
+        if (!hasAllProperties) {
+            throw new Error('Invalid product: Missing required properties');
+        }
+
+        this.items.set(product.id, product);
     }
 
     getAllItems() {
-        // Return an array of all items stored in the shopping cart
         return Array.from(this.items.values());
     }
 
@@ -31,14 +37,13 @@ class ShoppingCart {
     }
 
     removeProductFromCart(productId) {
+
         if (this.items.has(productId)) {
-            this.items.delete(productId); // Remove the item with the provided ID from the Map
-        } else {
-            // Handle scenario when the item to remove is not found in the cart
+            this.items.delete(productId);
+        }
+        else {
             console.log(`Item with ID ${productId} not found in the cart.`);
-            // Optionally, you can throw an error or handle it in a different way based on your requirements
         }
     }
 }
-
 module.exports = ShoppingCart;
